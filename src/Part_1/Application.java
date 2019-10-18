@@ -58,12 +58,3 @@ class MainFrame extends JFrame {
     }
 
 }
-
-    class SquarePanel extends JPanel
-    {
-        MainFrame theApp;
-        SquarePanel(MainFrame app)
-        {
-            theApp = app;
-        }
-}

@@ -26,17 +26,34 @@ class MainFrame extends JFrame {
         JButton butRemove   = new JButton("Remove Word");
         JButton butClear = new JButton("Clear List");
 
-        SquarePanel panel = new SquarePanel(this);
         JPanel butPanel = new JPanel();
+        JPanel sysOutput = new JPanel();
+        JPanel inputPanel = new JPanel();
 
+//        inputPanel Components
+        JButton wordSubmit = new JButton("Submit");
+        JLabel wordInputLabel = new JLabel("Word: ");
+        JTextField wordInput = new JTextField();
+//        Set size of wordInput component
+        wordInput.setColumns(size / 10);
+
+//        Add the buttons to panel
         butPanel.add(butAddItem);
         butPanel.add(butSearch);
         butPanel.add(butRemove);
         butPanel.add(butClear);
-        add(butPanel, BorderLayout.NORTH);
-        add(panel, BorderLayout.CENTER);
 
-        setSize( size+100, size+100 );
+//        Adding text input to inputPanel
+        inputPanel.add(wordInputLabel);
+        inputPanel.add(wordInput);
+        inputPanel.add(wordSubmit);
+
+//        Adding the panels
+        add(butPanel, BorderLayout.NORTH);
+        add(sysOutput, BorderLayout.CENTER);
+        add(inputPanel, BorderLayout.SOUTH);
+
+        setSize( size+150, size+100 );
 
     }
 
@@ -45,7 +62,6 @@ class MainFrame extends JFrame {
     class SquarePanel extends JPanel
     {
         MainFrame theApp;
-
         SquarePanel(MainFrame app)
         {
             theApp = app;

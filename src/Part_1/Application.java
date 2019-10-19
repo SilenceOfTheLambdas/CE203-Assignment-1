@@ -17,7 +17,10 @@ class MainFrame extends JFrame {
     int size = 400;
 
     String word;
-//    Word input
+/*
+* These are components that are manipulated by the addWord class.
+* They are for the input of a new word, and the display of the words from the ArrayList in addWord.
+* */
     JTextField wordInput = new JTextField();
     JTextArea wordLists = new JTextArea(size / 10, size / 10);
     public MainFrame()

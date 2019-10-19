@@ -16,6 +16,10 @@ public class Application {
 class MainFrame extends JFrame {
     int size = 400;
 
+    String word;
+//    Word input
+    JTextField wordInput = new JTextField();
+    JTextArea wordLists = new JTextArea(size / 10, size / 10);
     public MainFrame()
     {
 //        Close the frame properly
@@ -33,9 +37,13 @@ class MainFrame extends JFrame {
 //        inputPanel Components
         JButton wordSubmit = new JButton("Submit");
         JLabel wordInputLabel = new JLabel("Word: ");
-        JTextField wordInput = new JTextField();
-//        Set size of wordInput component
+//        Set size of wordInput and wordLists component
         wordInput.setColumns(size / 10);
+        wordLists.setWrapStyleWord(true);
+
+//        Adding the Word Lists to the panel
+        wordLists.setEditable(false);
+        sysOutput.add(wordLists);
 
 //        Add the buttons to panel
         butPanel.add(butAddItem);
@@ -55,6 +63,7 @@ class MainFrame extends JFrame {
 
         setSize( size+150, size+100 );
 
+        butAddItem.addActionListener(new addWord(this));
     }
 
 }

@@ -36,8 +36,12 @@ public class addWord implements ActionListener {
     }
 
     public boolean wordCheck(String wordToCheck) {
+        /*
+        This method checks to see if the word entered is in the correct format,
+        words must not: contain whitespace, start with a digit or contain anything other than letters, numbers or hyphens.
+         */
         boolean isCorrectFormat = true;
-        if (wordToCheck.isEmpty() || wordToCheck.isBlank() || wordToCheck.matches("^[\\d].*")) {
+        if (wordToCheck.isEmpty() || wordToCheck.isBlank() || wordToCheck.matches("^[\\d].*") || wordToCheck.matches("[^A-Za-z0-9]")) {
             isCorrectFormat = false;
         }
 

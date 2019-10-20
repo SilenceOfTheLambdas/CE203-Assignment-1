@@ -8,8 +8,7 @@ import java.util.Collection;
 
 public class addWord implements ActionListener {
 
-    MainFrame app;
-    ArrayList<String> words = new ArrayList<String>();
+    private MainFrame app;
 
     addWord(MainFrame app) {
         this.app = app;
@@ -24,18 +23,16 @@ public class addWord implements ActionListener {
 
         if (wordCheck(app.word)) {
             //        Add the word to the ArrayList
-            words.add(app.word);
-            app.wordLists.append(words.toString().trim());
+            app.words.add(app.word);
+            app.wordLists.append("The word '" + app.word + "' was added to the list.");
+            app.wordInput.setText("");
         }
         else {
-            JOptionPane.showMessageDialog(null, "Error adding word! Incorrect format used.");
-            app.wordLists.append(words.toString().trim());
+            JOptionPane.showMessageDialog(null, "Error! The string '" + app.word + "' was not added as it is not a valid word.");
         }
-//        Clear the word input box
-        app.wordInput.setText("");
     }
 
-    public boolean wordCheck(String wordToCheck) {
+    private boolean wordCheck(String wordToCheck) {
         /*
         This method checks to see if the word entered is in the correct format,
         words must not: contain whitespace, start with a digit or contain anything other than letters, numbers or hyphens.

@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Application {
 
@@ -14,17 +15,18 @@ public class Application {
 }
 
 class MainFrame extends JFrame {
-    int size = 400;
 
+    private int size = 400;
     String word;
+//    The ArrayList of words
+    ArrayList<String> words = new ArrayList<>();
 /*
 * These are components that are manipulated by the addWord class.
 * They are for the input of a new word, and the display of the words from the ArrayList in addWord.
 * */
     JTextField wordInput = new JTextField();
     JTextArea wordLists = new JTextArea(size / 10, size / 10);
-    public MainFrame()
-    {
+    MainFrame() {
 //        Close the frame properly
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 //        Button variable creation
@@ -66,7 +68,9 @@ class MainFrame extends JFrame {
 
         setSize( size+150, size+100 );
 
+//        Action Listeners
         butAddItem.addActionListener(new addWord(this));
+        butClear.addActionListener(new clearWords(this));
     }
 
 }

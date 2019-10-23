@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class  CE203_2019_Ass1 {
 
@@ -26,7 +27,7 @@ class MainFrame extends JFrame {
 * They are for the input of a new word, and the display of the words from the ArrayList in addWord.
 * */
     JTextField wordInput = new JTextField();
-    JTextArea outputScreen = new JTextArea(size / 10, size / 8);
+    JTextArea outputScreen = new JTextArea(size / 10, size / 10);
     MainFrame() {
 //        Close the frame properly
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -152,9 +153,6 @@ class wordSearch implements ActionListener {
 //        Set app.word to be the value in the wordInput text box
         app.searchLetter = app.wordInput.getText();
         String letter = app.searchLetter;
-//        if (letterCheck(letter)) {
-//
-//        }
         listWords(letter);
     }
 
@@ -171,43 +169,38 @@ class wordSearch implements ActionListener {
     private void listWords(String l) {
 //    TODO: Complete this task (It's a pain in the arse)
         app.outputScreen.setText("");
+        app.outputScreen.append("The following words match your search criteria: \n");
+        boolean found = false;
         for (int i = 0; i < app.words.size(); i++) {
-            String s  = app.words.get(i).toString();
-            String[] temp;
-            temp = s.split(l);
-            for (int x = 0; x < temp.length - 1; x++) {
-                app.outputScreen.append(app.words.get(x));
-                if (temp[x].equals(l)) {
-                    app.outputScreen.append(app.words.get(i));
-                }
+            int intFound = app.words.get(i).lastIndexOf(l);
+            if (intFound == app.words.get(i).length() - 1) {
+                found = true;
+                app.outputScreen.append(app.words.get(i));
             }
+        } if (!found) app.outputScreen.append("No words found!");
 
         }
-    }
 }
 
 class deleteWord implements ActionListener {
 
-    MainFrame app;
-    public deleteWord(MainFrame app) {
+    private MainFrame app;
+    deleteWord(MainFrame app) {
         this.app = app;
     }
 
     private void basicSearch(String word) {
-        ArrayList<String> queryWords = new ArrayList<>();
         boolean removed = false;
 
-        if (app.words.iterator().next().contains(word)) {
-            queryWords.add(word);
-            app.words.remove(word);
-            removed = true;
+        for (int i = 0; i < app.words.size(); i++) {
+            if (app.words.get(i).matches(word)) {
+                app.outputScreen.append("The following words match your search criteria: \n");
+                app.outputScreen.append(app.words.get(i));
+            } else {
+                app.outputScreen.append("No words found matching your criteria!");
+            }
         }
 
-        if (removed) {
-            app.outputScreen.append("The word(s):\n" + queryWords.toString() + "\nwere removed.");
-        } else {
-            app.outputScreen.append("No word found!");
-        }
     }
 
     @Override

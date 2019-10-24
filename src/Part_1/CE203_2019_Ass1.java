@@ -101,7 +101,7 @@ class addWord implements ActionListener {
             app.word = null;
         }
         else {
-            JOptionPane.showMessageDialog(null, "Error! The string '" + app.word + "' was not added as it is not a valid word.");
+            app.outputScreen.append("Error! The string '" + app.word + "' was not added as it is not a valid word.");
         }
     }
 
@@ -111,7 +111,7 @@ class addWord implements ActionListener {
         words must not: contain whitespace, start with a digit or contain anything other than letters, numbers or hyphens.
          */
         boolean isCorrectFormat = true;
-        if (wordToCheck.isEmpty() || wordToCheck.isBlank() || wordToCheck.matches("^[\\d].*") || wordToCheck.matches("[^A-Za-z0-9]")) {
+        if (wordToCheck.isEmpty() || wordToCheck.contains(" ") || wordToCheck.matches("^[\\d].*") || wordToCheck.matches("[^A-Za-z0-9]")) {
             isCorrectFormat = false;
         }
 
@@ -190,17 +190,14 @@ class deleteWord implements ActionListener {
     }
 
     private void basicSearch(String word) {
-        boolean removed = false;
-
+        app.outputScreen.append("The following words match your search criteria: \n");
         for (int i = 0; i < app.words.size(); i++) {
             if (app.words.get(i).matches(word)) {
-                app.outputScreen.append("The following words match your search criteria: \n");
                 app.outputScreen.append(app.words.get(i));
             } else {
-                app.outputScreen.append("No words found matching your criteria!");
+                app.outputScreen.append("none");
             }
         }
-
     }
 
     @Override

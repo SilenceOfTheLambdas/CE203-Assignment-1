@@ -98,20 +98,27 @@ class addWord implements ActionListener {
             app.words.add(app.word);
             app.outputScreen.append("The word '" + app.word + "' was added to the list.");
             app.wordInput.setText("");
-            app.word = null;
         }
         else {
             app.outputScreen.append("Error! The string '" + app.word + "' was not added as it is not a valid word.");
         }
     }
 
-    private boolean wordCheck(String wordToCheck) {
+    private boolean wordCheck(String wordToCheck) throws NullPointerException {
         /*
         This method checks to see if the word entered is in the correct format,
         words must not: contain whitespace, start with a digit or contain anything other than letters, numbers or hyphens.
          */
         boolean isCorrectFormat = true;
-        if (wordToCheck.isEmpty() || wordToCheck.contains(" ") || wordToCheck.matches("^[\\d].*") || wordToCheck.matches("[^A-Za-z0-9]")) {
+        try {
+            if (wordToCheck.contains(" ") || wordToCheck.matches("^[\\d].*") || wordToCheck.matches("[^A-Za-z0-9]")) {
+                isCorrectFormat = false;
+            }
+            if (wordToCheck.isBlank() || wordToCheck.isEmpty()) {
+                isCorrectFormat = false;
+            }
+        } catch (NullPointerException ex) {
+            app.outputScreen.append("Please enter a word into the text box below!");
             isCorrectFormat = false;
         }
 
@@ -167,13 +174,12 @@ class wordSearch implements ActionListener {
     }
 
     private void listWords(String l) {
-//    TODO: Complete this task (It's a pain in the arse)
         app.outputScreen.setText("");
         app.outputScreen.append("The following words match your search criteria: \n");
         boolean found = false;
         for (int i = 0; i < app.words.size(); i++) {
-            int intFound = app.words.get(i).lastIndexOf(l);
-            if (intFound == app.words.get(i).length() - 1) {
+            int intFound = app.words.get(i).toLowerCase().lastIndexOf(l);
+            if (intFound == app.words.get(i).toLowerCase().length() - 1) {
                 found = true;
                 app.outputScreen.append(app.words.get(i));
             }
@@ -189,14 +195,18 @@ class deleteWord implements ActionListener {
         this.app = app;
     }
 
-    private void basicSearch(String word) {
-        app.outputScreen.append("The following words match your search criteria: \n");
+    private void basicSearch() {
+        app.outputScreen.append("The following word(s) were removed: \n");
+        boolean found = false;
         for (int i = 0; i < app.words.size(); i++) {
-            if (app.words.get(i).matches(word)) {
+            if (app.word.toLowerCase().equals(app.words.get(i).toLowerCase())) {
+                found = true;
                 app.outputScreen.append(app.words.get(i));
-            } else {
-                app.outputScreen.append("none");
+                app.words.remove(app.words.get(i));
             }
+        }
+        if (!found) {
+            app.outputScreen.append("No words could be found matching your search!");
         }
     }
 
@@ -204,6 +214,6 @@ class deleteWord implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         app.outputScreen.setText("");
         app.wordInput.setText("");
-        basicSearch(app.wordInput.getText());
+        basicSearch();
     }
 }

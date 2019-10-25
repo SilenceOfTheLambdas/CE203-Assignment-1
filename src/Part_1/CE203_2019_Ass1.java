@@ -5,11 +5,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 public class  CE203_2019_Ass1 {
+    /**
+     * @author Callum-James Smith (cs18804)
+     * @param args Any command-line arguments
+     */
 
     public static void main(String[] args) {
         MainFrame frame = new MainFrame();
@@ -38,7 +40,7 @@ class MainFrame extends JFrame {
         JButton butSearch  = new JButton("Search Via Last Letter");
         JButton butRemove   = new JButton("Remove Word");
         JButton butClear = new JButton("Clear List");
-
+//        Create some panels for stuffs
         JPanel butPanel = new JPanel();
         JPanel sysOutput = new JPanel();
         JPanel inputPanel = new JPanel();
@@ -165,7 +167,7 @@ class wordSearch implements ActionListener {
 //        Set app.word to be the value in the wordInput text box
         app.searchLetter = app.wordInput.getText();
         String letter = app.searchLetter;
-        listWords(letter);
+        if (letterCheck(letter)) listWords(letter);
     }
 
     private boolean letterCheck(String l) {
@@ -179,14 +181,14 @@ class wordSearch implements ActionListener {
     }
 
     private void listWords(String l) {
-        app.outputScreen.setText("");
-        app.outputScreen.append("The following words match your search criteria: \n");
-        boolean found = false;
+        app.outputScreen.setText(""); // Clear the screen when button is activated
+        app.outputScreen.append("The following words match your search criteria: \n"); // Display message on top of output screen
+        boolean found = false; // Has a word been found inside of app.words
         for (int i = 0; i < app.words.size(); i++) {
             int intFound = app.words.get(i).toLowerCase().lastIndexOf(l);
             if (intFound == app.words.get(i).toLowerCase().length() - 1) {
                 found = true;
-                app.outputScreen.append(app.words.get(i));
+                app.outputScreen.append(app.words.get(i) + "\n");
             }
         } if (!found) app.outputScreen.setText("No words found!");
 
@@ -194,6 +196,9 @@ class wordSearch implements ActionListener {
 }
 
 class deleteWord implements ActionListener {
+    /**
+     * This class deletes a word from <code>app.words</code> according to the word obtained from <code>app.wordInput</code>
+     */
 
     private MainFrame app;
     deleteWord(MainFrame app) {
@@ -201,10 +206,10 @@ class deleteWord implements ActionListener {
     }
 
     private void basicSearch() {
-        app.outputScreen.append("The following word(s) were removed: \n");
-        List<String> toRemove = new ArrayList<>();
-        boolean found = false;
-        String l = app.wordInput.getText();
+        app.outputScreen.append("The following word(s) were removed: \n"); // Message to be displayed at top of output
+        List<String> toRemove = new ArrayList<>(); // Stores the words to be removed from app.words
+        boolean found = false; // Has the word been found in the array list?
+        String l = app.wordInput.getText(); // Stores the word inputted by the user
         for (String str : app.words) {
             if (str.equalsIgnoreCase(l)) {
                 app.outputScreen.append(str + "\n");
@@ -212,8 +217,8 @@ class deleteWord implements ActionListener {
                 found = true;
             }
         }
-        app.words.removeAll(toRemove);
-        app.wordInput.setText("");
+        app.words.removeAll(toRemove); // Remove all words from app.words according to the values in toRemove array
+        app.wordInput.setText(""); // Clear the textfield
 
         if (!found) {
             app.outputScreen.setText("No words could be found matching your search!");
@@ -223,7 +228,7 @@ class deleteWord implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        app.outputScreen.setText("");
+        app.outputScreen.setText(""); // Clear screen when button is activated
         basicSearch();
     }
 }

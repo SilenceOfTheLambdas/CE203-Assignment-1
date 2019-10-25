@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 public class  CE203_2019_Ass1 {
 
@@ -18,7 +20,7 @@ public class  CE203_2019_Ass1 {
 class MainFrame extends JFrame {
 
     private int size = 400;
-    String word;
+    String word = "";
     String searchLetter;
 //    The ArrayList of words
     ArrayList<String> words = new ArrayList<>();
@@ -98,9 +100,12 @@ class addWord implements ActionListener {
             app.words.add(app.word);
             app.outputScreen.append("The word '" + app.word + "' was added to the list.");
             app.wordInput.setText("");
+            app.outputScreen.append(app.words.toString());
+            app.word = "";
         }
         else {
             app.outputScreen.append("Error! The string '" + app.word + "' was not added as it is not a valid word.");
+            app.word = "";
         }
     }
 
@@ -183,7 +188,7 @@ class wordSearch implements ActionListener {
                 found = true;
                 app.outputScreen.append(app.words.get(i));
             }
-        } if (!found) app.outputScreen.append("No words found!");
+        } if (!found) app.outputScreen.setText("No words found!");
 
         }
 }
@@ -197,23 +202,28 @@ class deleteWord implements ActionListener {
 
     private void basicSearch() {
         app.outputScreen.append("The following word(s) were removed: \n");
+        List<String> toRemove = new ArrayList<>();
         boolean found = false;
-        for (int i = 0; i < app.words.size(); i++) {
-            if (app.word.toLowerCase().equals(app.words.get(i).toLowerCase())) {
+        String l = app.wordInput.getText();
+        for (String str : app.words) {
+            if (str.equalsIgnoreCase(l)) {
+                app.outputScreen.append(str + "\n");
+                toRemove.add(str);
                 found = true;
-                app.outputScreen.append(app.words.get(i));
-                app.words.remove(app.words.get(i));
             }
         }
+        app.words.removeAll(toRemove);
+        app.wordInput.setText("");
+
         if (!found) {
-            app.outputScreen.append("No words could be found matching your search!");
+            app.outputScreen.setText("No words could be found matching your search!");
+            app.wordInput.setText("");
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         app.outputScreen.setText("");
-        app.wordInput.setText("");
         basicSearch();
     }
 }

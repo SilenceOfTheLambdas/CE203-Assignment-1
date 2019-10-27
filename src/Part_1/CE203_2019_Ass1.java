@@ -50,6 +50,9 @@ class MainFrame extends JFrame {
 
 //        inputPanel Components
         JLabel wordInputLabel = new JLabel("Word: ");
+        JLabel r = new JLabel("R:");
+        JLabel g = new JLabel("G");
+        JLabel b = new JLabel("B");
 //        Set size of wordInput and outputScreen component
         wordInput.setColumns(20);
         outputScreen.setWrapStyleWord(true);
@@ -67,8 +70,11 @@ class MainFrame extends JFrame {
 //        Adding text input to inputPanel
         inputPanel.add(wordInputLabel);
         inputPanel.add(wordInput);
+        inputPanel.add(r);
         inputPanel.add(rColour);
+        inputPanel.add(g);
         inputPanel.add(gColour);
+        inputPanel.add(b);
         inputPanel.add(bColour);
 
 //        Adding the panels

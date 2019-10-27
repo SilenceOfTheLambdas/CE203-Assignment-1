@@ -31,6 +31,9 @@ class MainFrame extends JFrame {
 * They are for the input of a new word, and the display of the words from the ArrayList in addWord.
 * */
     JTextField wordInput = new JTextField();
+    JTextField rColour = new JTextField(5);
+    JTextField gColour = new JTextField(5);
+    JTextField bColour = new JTextField(5);
     JTextArea outputScreen = new JTextArea(size / 10, size / 10);
     MainFrame() {
 //        Close the frame properly
@@ -48,7 +51,7 @@ class MainFrame extends JFrame {
 //        inputPanel Components
         JLabel wordInputLabel = new JLabel("Word: ");
 //        Set size of wordInput and outputScreen component
-        wordInput.setColumns(size / 10);
+        wordInput.setColumns(20);
         outputScreen.setWrapStyleWord(true);
 
 //        Adding the Word Lists to the panel
@@ -64,6 +67,9 @@ class MainFrame extends JFrame {
 //        Adding text input to inputPanel
         inputPanel.add(wordInputLabel);
         inputPanel.add(wordInput);
+        inputPanel.add(rColour);
+        inputPanel.add(gColour);
+        inputPanel.add(bColour);
 
 //        Adding the panels
         add(butPanel, BorderLayout.NORTH);

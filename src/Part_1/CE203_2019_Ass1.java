@@ -7,10 +7,11 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class  CE203_2019_Ass1 {
+public class CE203_2019_Ass1 {
     /**
      * @author Callum-James Smith (cs18804)
      * @param args Any command-line arguments
+     * @see <a href="https://bitbucket.org/techdragongames/application-programming-assignment-1/src/master/">Repository</a>
      */
 
     public static void main(String[] args) {
@@ -20,7 +21,9 @@ public class  CE203_2019_Ass1 {
 }
 
 class MainFrame extends JFrame {
-
+    /**
+     * This class is responsible for making the JFrame and showing all the elements.
+     */
     private int size = 400;
     String word = "";
     String searchLetter;
@@ -31,10 +34,11 @@ class MainFrame extends JFrame {
 * They are for the input of a new word, and the display of the words from the ArrayList in addWord.
 * */
     JTextField wordInput = new JTextField();
-    JTextField rColour = new JTextField(5);
-    JTextField gColour = new JTextField(5);
-    JTextField bColour = new JTextField(5);
+    private JTextField rColour = new JTextField(5);
+    private JTextField gColour = new JTextField(5);
+    private JTextField bColour = new JTextField(5);
     JTextArea outputScreen = new JTextArea(size / 10, size / 10);
+
     MainFrame() {
 //        Close the frame properly
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -90,9 +94,10 @@ class MainFrame extends JFrame {
         butClear.addActionListener(new clearWords(this));
         butSearch.addActionListener(new wordSearch(this));
         butRemove.addActionListener(new deleteWord(this));
-    }
+    } // End of constructor
 
     void setOutputColor () throws NumberFormatException {
+//        This method changes the colour of outputScreen according the user input.
         try {
 //            Obtain the values entered by the user
             int r = Integer.parseInt(rColour.getText());
@@ -121,7 +126,7 @@ class MainFrame extends JFrame {
 }
 
 class addWord implements ActionListener {
-
+//  This class is responsible for adding words to the words list in MainFrame
     private MainFrame app;
 
     addWord(MainFrame app) {
@@ -130,7 +135,6 @@ class addWord implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
 //        Set colour
         app.setOutputColor();
 
@@ -251,6 +255,7 @@ class deleteWord implements ActionListener {
     }
 
     private void basicSearch() {
+//        method responsible for finding and deleting words from the list
         app.outputScreen.append("The following word(s) were removed: \n"); // Message to be displayed at top of output
         List<String> toRemove = new ArrayList<>(); // Stores the words to be removed from app.words
         boolean found = false; // Has the word been found in the array list?

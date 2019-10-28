@@ -92,6 +92,32 @@ class MainFrame extends JFrame {
         butRemove.addActionListener(new deleteWord(this));
     }
 
+    void setOutputColor () throws NumberFormatException {
+        try {
+//            Obtain the values entered by the user
+            int r = Integer.parseInt(rColour.getText());
+            int g = Integer.parseInt(gColour.getText());
+            int b = Integer.parseInt(bColour.getText());
+
+            if ((r > 255 || r < 0) || (g > 255 || g < 0) || (b > 255 || b < 0)) {
+//                Checks to see if the values are compatible with Color
+                r = 0;
+                g = 0;
+                b = 0;
+                JOptionPane.showMessageDialog(null, "Values must be between 0 and 255!");
+            }
+
+//            Create a new color variable based in the user input
+            Color userColour = new Color(r, g, b);
+//            Set foreground colour
+            outputScreen.setForeground(userColour);
+        } catch (NumberFormatException ex) {
+            outputScreen.setForeground(Color.BLACK);
+            JOptionPane.showMessageDialog(null, "Please make sure to enter values into the RGB inputs!");
+        }
+
+    }
+
 }
 
 class addWord implements ActionListener {
@@ -104,6 +130,10 @@ class addWord implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+//        Set colour
+        app.setOutputColor();
+
 //        Obtain the word from the input
         app.word = app.wordInput.getText();
 //        Clear the wordList window every time the 'add word' button is pressed
@@ -114,7 +144,6 @@ class addWord implements ActionListener {
             app.words.add(app.word);
             app.outputScreen.append("The word '" + app.word + "' was added to the list.");
             app.wordInput.setText("");
-            app.outputScreen.append(app.words.toString());
             app.word = "";
         }
         else {
@@ -154,6 +183,8 @@ class clearWords implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+//        Set colour
+        app.setOutputColor();
         app.outputScreen.setText("");
 //        Check to see if array is empty
         if (app.words.isEmpty()) {
@@ -174,6 +205,8 @@ class wordSearch implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+//        Set colour
+        app.setOutputColor();
 //        Make sure to clear the output box
         app.outputScreen.setText("");
 //        Set app.word to be the value in the wordInput text box
@@ -240,6 +273,8 @@ class deleteWord implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+    //        Set colour
+        app.setOutputColor();
         app.outputScreen.setText(""); // Clear screen when button is activated
         basicSearch();
     }

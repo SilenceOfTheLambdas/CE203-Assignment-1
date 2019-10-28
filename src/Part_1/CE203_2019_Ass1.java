@@ -9,8 +9,8 @@ import java.util.List;
 
 public class CE203_2019_Ass1 {
     /**
-     * @author Callum-James Smith (cs18804)
      * @param args Any command-line arguments
+     * @author Callum-James Smith (cs18804)
      * @see <a href="https://bitbucket.org/techdragongames/application-programming-assignment-1/src/master/">Repository</a>
      */
 
@@ -27,12 +27,11 @@ class MainFrame extends JFrame {
     private int size = 400;
     String word = "";
     String searchLetter;
-//    The ArrayList of words
     ArrayList<String> words = new ArrayList<>();
-/*
-* These are components that are manipulated by the addWord class.
-* They are for the input of a new word, and the display of the words from the ArrayList in addWord.
-* */
+    /*
+     * These are components that are manipulated by the addWord class.
+     * They are for the input of a new word, and the display of the words from the ArrayList in addWord.
+     * */
     JTextField wordInput = new JTextField();
     private JTextField rColour = new JTextField(5);
     private JTextField gColour = new JTextField(5);
@@ -43,11 +42,12 @@ class MainFrame extends JFrame {
 //        Close the frame properly
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 //        Button variable creation
-        JButton butAddItem   = new JButton("Add Word");
-        JButton butSearch  = new JButton("Search Via Last Letter");
-        JButton butRemove   = new JButton("Remove Word");
+        JButton butAddItem = new JButton("Add Word");
+        JButton butSearch = new JButton("Search Via Last Letter");
+        JButton butRemove = new JButton("Remove Word");
         JButton butClear = new JButton("Clear List");
-//        Create some panels for stuffs
+
+//        Create some panels
         JPanel butPanel = new JPanel();
         JPanel sysOutput = new JPanel();
         JPanel inputPanel = new JPanel();
@@ -57,6 +57,7 @@ class MainFrame extends JFrame {
         JLabel r = new JLabel("R:");
         JLabel g = new JLabel("G");
         JLabel b = new JLabel("B");
+
 //        Set size of wordInput and outputScreen component
         wordInput.setColumns(20);
         outputScreen.setWrapStyleWord(true);
@@ -86,7 +87,7 @@ class MainFrame extends JFrame {
         add(sysOutput, BorderLayout.CENTER);
         add(inputPanel, BorderLayout.SOUTH);
 
-        setSize( size+150, size+100 );
+        setSize(size + 150, size + 100);
         outputScreen.setForeground(Color.BLACK);
 
 //        Action Listeners
@@ -94,9 +95,9 @@ class MainFrame extends JFrame {
         butClear.addActionListener(new clearWords(this));
         butSearch.addActionListener(new wordSearch(this));
         butRemove.addActionListener(new deleteWord(this));
-    } // End of constructor
+    }
 
-    void setOutputColor () throws NumberFormatException {
+    void setOutputColor() throws NumberFormatException {
 //        This method changes the colour of outputScreen according the user input.
         try {
 //            Obtain the values entered by the user
@@ -126,7 +127,7 @@ class MainFrame extends JFrame {
 }
 
 class addWord implements ActionListener {
-//  This class is responsible for adding words to the words list in MainFrame
+    //  This class is responsible for adding words to the words list in MainFrame
     private MainFrame app;
 
     addWord(MainFrame app) {
@@ -149,8 +150,7 @@ class addWord implements ActionListener {
             app.outputScreen.append("The word '" + app.word + "' was added to the list.");
             app.wordInput.setText("");
             app.word = "";
-        }
-        else {
+        } else {
             app.outputScreen.append("Error! The string '" + app.word + "' was not added as it is not a valid word.");
             app.word = "";
         }
@@ -181,6 +181,7 @@ class addWord implements ActionListener {
 class clearWords implements ActionListener {
 
     private MainFrame app;
+
     clearWords(MainFrame app) {
         this.app = app;
     }
@@ -193,7 +194,7 @@ class clearWords implements ActionListener {
 //        Check to see if array is empty
         if (app.words.isEmpty()) {
             app.outputScreen.append("There are no words in the list to clear!");
-        }  else {
+        } else {
 //            Clear the array of words
             app.words.clear();
             app.outputScreen.append("All words cleared!");
@@ -204,9 +205,11 @@ class clearWords implements ActionListener {
 class wordSearch implements ActionListener {
 
     private MainFrame app;
+
     wordSearch(MainFrame app) {
         this.app = app;
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 //        Set colour
@@ -220,6 +223,7 @@ class wordSearch implements ActionListener {
     }
 
     private boolean letterCheck(String l) {
+//        Checks to see if the input in only a single letter/number
         boolean isGood = true;
         if (l.length() > 1) {
             app.outputScreen.append("Please use a single letter or number!");
@@ -230,36 +234,38 @@ class wordSearch implements ActionListener {
     }
 
     private void listWords(String l) {
-        app.outputScreen.setText(""); // Clear the screen when button is activated
-        app.outputScreen.append("The following words match your search criteria: \n"); // Display message on top of output screen
-        boolean found = false; // Has a word been found inside of app.words
+//        This method displays word(s) that end in a specified value
+        app.outputScreen.setText("");
+        app.outputScreen.append("The following words match your search criteria: \n");
+        boolean found = false;
+//        Iterates through the words ArrayList
         for (int i = 0; i < app.words.size(); i++) {
             int intFound = app.words.get(i).toLowerCase().lastIndexOf(l);
             if (intFound == app.words.get(i).toLowerCase().length() - 1) {
                 found = true;
                 app.outputScreen.append(app.words.get(i) + "\n");
             }
-        } if (!found) app.outputScreen.setText("No words found!");
-
         }
+        if (!found) app.outputScreen.setText("No words found!");
+    }
 }
 
 class deleteWord implements ActionListener {
     /**
      * This class deletes a word from <code>app.words</code> according to the word obtained from <code>app.wordInput</code>
      */
-
     private MainFrame app;
+
     deleteWord(MainFrame app) {
         this.app = app;
     }
 
     private void basicSearch() {
 //        method responsible for finding and deleting words from the list
-        app.outputScreen.append("The following word(s) were removed: \n"); // Message to be displayed at top of output
+        app.outputScreen.append("The following word(s) were removed: \n");
         List<String> toRemove = new ArrayList<>(); // Stores the words to be removed from app.words
-        boolean found = false; // Has the word been found in the array list?
-        String l = app.wordInput.getText(); // Stores the word inputted by the user
+        boolean found = false;
+        String l = app.wordInput.getText();
         for (String str : app.words) {
             if (str.equalsIgnoreCase(l)) {
                 app.outputScreen.append(str + "\n");
@@ -278,7 +284,7 @@ class deleteWord implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-    //        Set colour
+        //        Set colour
         app.setOutputColor();
         app.outputScreen.setText(""); // Clear screen when button is activated
         basicSearch();

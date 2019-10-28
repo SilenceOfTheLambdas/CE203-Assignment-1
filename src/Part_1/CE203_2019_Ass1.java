@@ -219,7 +219,7 @@ class wordSearch implements ActionListener {
 //        Set app.word to be the value in the wordInput text box
         app.searchLetter = app.wordInput.getText();
         String letter = app.searchLetter;
-        if (letterCheck(letter)) listWords(letter);
+        if (letterCheck(letter)) listWords();
     }
 
     private boolean letterCheck(String l) {
@@ -233,10 +233,11 @@ class wordSearch implements ActionListener {
         return isGood;
     }
 
-    private void listWords(String l) {
+    private void listWords() {
 //        This method displays word(s) that end in a specified value
         app.outputScreen.setText("");
         app.outputScreen.append("The following words match your search criteria: \n");
+        String l = app.wordInput.getText().toLowerCase();
         boolean found = false;
 //        Iterates through the words ArrayList
         for (int i = 0; i < app.words.size(); i++) {

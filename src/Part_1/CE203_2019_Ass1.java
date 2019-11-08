@@ -163,10 +163,11 @@ class addWord implements ActionListener {
          */
         boolean isCorrectFormat = true;
         try {
-            if (wordToCheck.contains(" ") || wordToCheck.matches("^[\\d].*") || wordToCheck.matches("[^A-Za-z0-9]")) {
+            if (wordToCheck.contains(" ") || wordToCheck.matches("^[\\d].*") || wordToCheck.matches("[^A-Za-z0-9].*")) {
                 isCorrectFormat = false;
             }
             if (wordToCheck.isBlank() || wordToCheck.isEmpty()) {
+//                Checks to see if the word is empty
                 isCorrectFormat = false;
             }
         } catch (NullPointerException ex) {

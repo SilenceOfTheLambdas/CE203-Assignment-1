@@ -10,8 +10,10 @@ import java.util.List;
 public class CE203_2019_Ass1 {
     /**
      * @param args Any command-line arguments
-     * @author Callum-James Smith (cs18804)
+     * @author Callum-James Smith (1806094)
      * @see <a href="https://bitbucket.org/techdragongames/application-programming-assignment-1/src/master/">Repository</a>
+     * Date Created: 18-10-2019
+     * Last Updated: 08-11-2019
      */
 
     public static void main(String[] args) {
@@ -24,9 +26,9 @@ class MainFrame extends JFrame {
     /**
      * This class is responsible for making the JFrame and showing all the elements.
      */
-    private int size = 400;
-    String word = "";
-    String searchLetter;
+    private int size = 400; // This is a global variable that controls the size of multiple elements
+    String word = ""; // Stores the current value obtained from the input field
+    String searchLetter; // Used to store the letter used when showing results using last letter
     ArrayList<String> words = new ArrayList<>();
     /*
      * These are components that are manipulated by the addWord class.
@@ -58,12 +60,12 @@ class MainFrame extends JFrame {
         JLabel g = new JLabel("G");
         JLabel b = new JLabel("B");
 
-//        Set size of wordInput and outputScreen component
+//        Set size of wordInput and implement text wrapping
         wordInput.setColumns(20);
         outputScreen.setWrapStyleWord(true);
 
 //        Adding the Word Lists to the panel
-        outputScreen.setEditable(false);
+        outputScreen.setEditable(false); // Sets the output screen as 'non-editable'
         sysOutput.add(outputScreen);
 
 //        Add the buttons to panel
@@ -87,8 +89,7 @@ class MainFrame extends JFrame {
         add(sysOutput, BorderLayout.CENTER);
         add(inputPanel, BorderLayout.SOUTH);
 
-        setSize(size + 150, size + 100);
-        outputScreen.setForeground(Color.BLACK);
+        setSize(size + 150, size + 100); // Sets the size of the window
 
 //        Action Listeners
         butAddItem.addActionListener(new addWord(this));
@@ -119,7 +120,7 @@ class MainFrame extends JFrame {
             outputScreen.setForeground(userColour);
         } catch (NumberFormatException ex) {
             outputScreen.setForeground(Color.BLACK);
-            JOptionPane.showMessageDialog(null, "Please make sure to enter values into the RGB inputs!");
+            JOptionPane.showMessageDialog(this, "Please make sure to enter values into the RGB inputs!");
         }
 
     }
@@ -180,7 +181,9 @@ class addWord implements ActionListener {
 }
 
 class clearWords implements ActionListener {
-
+    /**
+     * This class is responsible for clearing all words inside of ArrayList
+     */
     private MainFrame app;
 
     clearWords(MainFrame app) {
@@ -238,11 +241,11 @@ class wordSearch implements ActionListener {
 //        This method displays word(s) that end in a specified value
         app.outputScreen.setText("");
         app.outputScreen.append("The following words match your search criteria: \n");
-        String l = app.wordInput.getText().toLowerCase();
-        boolean found = false;
+        String l = app.wordInput.getText().toLowerCase(); // Obtain the current input (and make it lowercase)
+        boolean found = false; // has a word(s) been found?
 //        Iterates through the words ArrayList
         for (int i = 0; i < app.words.size(); i++) {
-            int intFound = app.words.get(i).toLowerCase().lastIndexOf(l);
+            int intFound = app.words.get(i).toLowerCase().lastIndexOf(l); // Get the last index of the item(s) that matches l
             if (intFound == app.words.get(i).toLowerCase().length() - 1) {
                 found = true;
                 app.outputScreen.append(app.words.get(i) + "\n");
